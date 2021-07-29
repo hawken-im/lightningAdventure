@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/new_file.css" rel="stylesheet" type="text/css">
+		<script src="./jjs/d3.v4.min.js"></script>
+
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<script type="text/javascript">
+		//获取浏览器页面可见高度和宽度  
+		var _PageHeight = document.body.scrollHeight+30,  
+		    _PageWidth = document.documentElement.clientWidth;  
+		//计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）  
+		var _LoadingTop = _PageHeight > 61 ? 22450 : 0,  
+		    _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;  
+		//在页面未加载完毕之前显示的loading Html自定义内容  
+		var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#ffffff;opacity:1;filter:alpha(opacity=80);z-index:10000; color:#000000; font-size:30px;"><p style="margin-top:' + _LoadingTop + 'px; margin-left:'+ _LoadingLeft+'px;">Loading...</p></div>';  
+		//呈现loading效果  background: #fff url(Image/loading.gif) no-repeat scroll 5px 10px;
+		//document.write(_LoadingHtml);  
+		  
+		/*window.onload = function () {  
+		   setTimeout(function(){
+		    loadingMask = document.getElementById('loadingDiv');  
+		        document.getElementById('loadingDiv').parentNode.removeChild(loadingMask);
+		        console.log(this);
+		    },3000);
+		};*/
+		  
+		//监听加载状态改变  
+		document.onreadystatechange = completeLoading;  			
+		document.write(_LoadingHtml); 		  
+		//加载状态为complete时移除loading效果  
+		function completeLoading() {  
+		    if (document.readyState == "complete") {  
+		    setTimeout(function(){
+		    loadingMask = document.getElementById('loadingDiv');  
+		        document.getElementById('loadingDiv').parentNode.removeChild(loadingMask);
+		        console.log(this);
+		    },3000);
+		    }  
+		}  		
+		   </script>
+		<label class="zhiy" id="zhiy"></label>
+		<div class="root" id="rt">
+			<label class="labs">Lightning Touches Sky</label>
+			<div class="rt3">
+				<div class="p_1">
+					<p>Lightning is the greateast light show on our planet Earth.
+					<p>Lightning is a bright flash of electricity produced by a thunderstorm. All thunderstorms produce lightning and are very dangerous.
+				</div>
+				<p>For your safety, please read this:
+				<img src="img/link.svg" alt="" width="20px" height="20px" class="svg1"/> 
+				<a href="lightningsafety.html">Lightning Safety Tips</a>
+				</p>
+			</div>
+			<div class="rt2">
+				<label class="lab2">Made with&nbsp;</label>
+				<img src="img/heart.svg" alt="" width="20px" height="20px"/> 
+				<label class="lab2">&nbsp; by Hawken</label>
+			</div>
+			<div class="rt3">
+				<label class="lb3">Programed by Dan, Hawken / Illustrated by Dan</label>
+			</div>
+		</div>
+		<div class="rootend">
+			<img alt="The ocean bottom" src="./img/ocean-bottom-top.svg" style="transform: rotate(180deg);
+	margin-top: -1px;">
+		</div>
+		<div class="canva">			
+		<canvas id="canvas"  width='1520px'  height="22000px" class="canvas"></canvas>	
+		</div>
+		<div class="end">
+		<p class='p_2'>Lightning Touches Sky</p>	
+		<p class='p_3'>For My Beloved Ones</p>
+		</div>		
+		<!-- <div class="background" id="bg">
+		<canvas class="can" id="can"></canvas>
+		<script  src="js/index.js"></script>
+		</div> -->
+		<script type="text/javascript" src="js/new_file.js"></script>	
+		<script type="text/javascript" src="js/background.js"></script>
+		<script type="text/javascript">
+	    //获取csv对象
+		arrx=[];
+		arry=[];
+		arrluj=[];
+		arrw=[];
+		arrh=[];
+		d3.csv("aaa.csv",function(error,csvdata){
+	        if(error){
+	            console.log(error);
+	        }
+	        console.log(csvdata);
+	        //输出csv内容s
+	        for( let i=0; i<csvdata.length; i++ ){
+	            arrx[i]= csvdata[i].x;
+	            arry[i]= csvdata[i].y;
+	            arrluj[i]= csvdata[i].luj;
+				arrw[i]=csvdata[i].width;
+				arrh[i]=csvdata[i].height;
+	        }
+			//console.log("main++"+arrx[0]);
+			main();
+		/*	mainy();
+			mainluj();*/
+	    });	
+		function main() {
+   //在canvas中画图片
+	console.log(arrx+arry);
+   //遍历序号，将图片放入Rarr中
+   let canvas = document.getElementById("canvas");
+   let ctx = canvas.getContext("2d");
+   for (let i = 0; i < arrx.length; i++) {
+    let a=arrx[i];
+	   let b=arry[i];
+	   let n=arrluj[i];
+	   let w=arrw[i];
+	   let h=arrh[i];
+	   let img = new Image();
+    img.src = n;
+	   console.log(n);
+    img.onload = function() {
+     //只能在这个地方画图，出了IIFE Rarr数组为空
+     ctx.drawImage(img,a,b, w, h)
+    },1000
+
+   }
+  }
+	</script>
+		<script>
+		//通过scrollTo将窗口定位到底部，document.body.scrollHeight是网页正文全文高;
+		window.scrollTo(0,document.body.scrollHeight)
+		</script>
+</body>
+</html>
